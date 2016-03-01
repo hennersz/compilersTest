@@ -5,4 +5,10 @@ If you use this repo please add any of your own test cases that at least use the
 
 We are not sure if all of these tests are correct since we might have made different assumptions.
 
+## Setting up
+Copy all of the files in this repository into your compilers project and run
+```
+python runtests.py
+```
+
 
