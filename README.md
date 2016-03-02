@@ -6,9 +6,13 @@ If you use this repo please add any of your own test cases that at least use the
 We are not sure if all of these tests are correct since we might have made different assumptions.
 
 ## Setting up
-Copy all of the files in this repository into your compilers project and run
+Copy all of the files in this repository into your compilers project.
+
+Then in 
 ```
-python runtests.py
+python3 runtests.py
 ```
 
-
+Make sure you use python 3.5  to run the script because otherwise it might not work.
+## Personalization
+You can choose to either have a progress bar or to see how many tests you have failed. Just open up the runtests.py file and change the 'progressbar' global to either true or false, depending on if you want the progress bar or not.
