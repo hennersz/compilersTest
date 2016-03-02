@@ -19,18 +19,19 @@ def getFileNames():
 
 
 def printProgressBar(percentage):
-    spaces = ' ' * (100 - percentage)
-    if(percentage < 33):
-        sys.stdout.write('\rPercent: [' + '\x1b[1;%dm' % (30+RED) + '{0}{1}'.format('#'*percentage, spaces) + '\x1b[1;%dm' % (30+WHITE) +'] {0}%'.format(percentage))
-    elif(percentage < 66):
-        string = '\rPercent: [' + '\x1b[1;%dm' % (30+RED) + '{0}'.format('#'*33)
-        string += '\x1b[1;%dm' % (30+YELLOW) + '{0}{1}'.format('#'*(percentage - 33), spaces)
+    percentageh = int(percentage/2)
+    spaces = ' ' * (50 - percentageh)
+    if(percentageh < 17):
+        sys.stdout.write('\rPercent: [' + '\x1b[1;%dm' % (30+RED) + '{0}{1}'.format('#'*percentageh, spaces) + '\x1b[1;%dm' % (30+WHITE) +'] {0}%'.format(percentage))
+    elif(percentageh < 34):
+        string = '\rPercent: [' + '\x1b[1;%dm' % (30+RED) + '{0}'.format('#'*17)
+        string += '\x1b[1;%dm' % (30+YELLOW) + '{0}{1}'.format('#'*(percentageh - 17), spaces)
         string += '\x1b[1;%dm' % (30+WHITE) + '] {0}%'.format(percentage)
         sys.stdout.write('{0}'.format(string))
     else:
-        string = '\rPercent: [' + '\x1b[1;%dm' % (30+RED) + '{0}'.format('#'*33)
-        string += '\x1b[1;%dm' % (30+YELLOW) + '{0}'.format('#'*33)
-        string += '\x1b[1;%dm' % (30+GREEN) + '{0}{1}'.format('#'*(percentage - 66), spaces)
+        string = '\rPercent: [' + '\x1b[1;%dm' % (30+RED) + '{0}'.format('#'*17)
+        string += '\x1b[1;%dm' % (30+YELLOW) + '{0}'.format('#'*17)
+        string += '\x1b[1;%dm' % (30+GREEN) + '{0}{1}'.format('#'*(percentageh - 34), spaces)
         string += '\x1b[1;%dm' % (30+WHITE) + '] {0}%'.format(percentage)
         sys.stdout.write('{0}'.format(string))
     sys.stdout.flush()
