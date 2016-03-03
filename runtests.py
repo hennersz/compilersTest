@@ -2,12 +2,12 @@ import subprocess
 import os
 import sys
 
-rootDirectoy = os.path.abspath(".")
-progressbar = True
+rootDirectory, filename = os.path.split(os.path.abspath(__file__))
+progressbar = False 
 BLACK, RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN, WHITE = range(8)
 
 def getFileNames():
-    files = [val for sublist in [[os.path.join(i[0], j) for j in i[2]] for i in os.walk(rootDirectoy + '/tests')] for val in sublist]
+    files = [val for sublist in [[os.path.join(i[0], j) for j in i[2]] for i in os.walk(rootDirectory + '/tests')] for val in sublist]
     negatives = []
     positives = []
     for file in files:
@@ -53,7 +53,7 @@ def runtests(files, positive):
     else:
         print("Testing negative files")
 
-    string = rootDirectoy + '/bin/:lib/java-cup-11b-runtime.jar'
+    string = rootDirectory + '/bin/:lib/java-cup-11b-runtime.jar'
     progress = 1.0
     total = len(files)
 
@@ -64,11 +64,11 @@ def runtests(files, positive):
         err, out = (str(p.stderr), str(p.stdout))
         if positive:
             if "error" in err and "parsing successful" not in out:
-                testfailed.append(file)
+                testfailed.append((file, err[2:-3]))
                 passed = False
         else:
             if "error" not in err:
-                testfailed.append(file)
+                testfailed.append((file, ''))
                 passed = False
         progress+=1
         if progressbar:
@@ -79,10 +79,11 @@ def runtests(files, positive):
     return testfailed
 
 def printFailedTests(testfailed, amountOfTests):
-    string = rootDirectoy + '/bin/:lib/java-cup-11b-runtime.jar'
+    string = rootDirectory + '/bin/:lib/java-cup-11b-runtime.jar'
     for file in testfailed:
         sys.stdout.write('\x1b[1;%dm' % (30+RED) + "Test failed :(\n" + '\x1b[1;%dm' % (30+WHITE))
-        print("Run the test again: java -cp " + string + " SC " + file)
+        print(file[0][len(rootDirectory):] + ' ' + file[1])
+        print("Run the test again: java -cp " + string + " SC " + file[0])
 
     if len(testfailed) == 0:
         sys.stdout.write('\x1b[1;%dm' % (30+GREEN) + "Passed all of the tests, congrats :)\n")
@@ -94,7 +95,7 @@ if __name__ == '__main__':
     print("This might take a while...")
 
     #subrocess.call() is blocking, need to wait until make finishes executing
-    subprocess.call(['make', '-C', rootDirectoy])
+    subprocess.call(['make', '-C', rootDirectory])
     files = getFileNames()
 
     testfailed = runtests(files['negatives'], False)
