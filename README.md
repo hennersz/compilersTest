@@ -8,6 +8,13 @@ We are not sure if all of these tests are correct since we might have made diffe
 ## Setting up
 Copy all of the files in this repository into your compilers project.
 
+Very important!! The tests will not run without this!!
+Go into the sl directory and run make:
+```
+cd sl
+make
+```
+
 Then in 
 ```
 python3 runtests.py
