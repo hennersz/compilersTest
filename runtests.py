@@ -80,6 +80,11 @@ def runtests(files, positive):
     sys.stdout.write('\x1b[1;%dm' % (30+WHITE) + '\n' )
     return testfailed
 
+def trainz():
+    subprocess.call(['make', '-C', rootDirectory + '/sl'])
+    subprocess.call(['say', "Choooo Choooo Choooo Choooo Choooo Choooo"])
+    subprocess.call(['./sl/sl'])
+
 def printFailedTests(testfailed, amountOfTests):
     string = rootDirectory + '/bin/:lib/java-cup-11b-runtime.jar'
     for file in testfailed:
@@ -91,7 +96,8 @@ def printFailedTests(testfailed, amountOfTests):
         sys.stdout.write('\x1b[1;%dm' % (30+GREEN) + "Passed all of the tests, congrats :)\n")
     else:
         sys.stdout.write('\x1b[1;%dm' % (30+RED) + "Failed {0}/{1} tests\n".format(len(testfailed), amountOfTests))
-
+        subprocess.call(['say', 'Failed {0}/{1} tests'.format(len(testfailed), amountOfTests)])
+    trainz()
 if __name__ == '__main__':
     sys.stdout.write('\x1b[1;%dm' % (30+WHITE))
     print("This might take a while...")
