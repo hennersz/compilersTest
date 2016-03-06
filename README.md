@@ -19,6 +19,10 @@ Then in
 ```
 python3 runtests.py
 ```
+If you think these tests are still too slow, then we also have concurrent testing setup for you! Just run
+```
+python3 runtestscon.py
+```
 
 Make sure you use python 3.5  to run the script because otherwise it might not work.
 ## Personalization
